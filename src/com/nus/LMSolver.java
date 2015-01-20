@@ -1,7 +1,5 @@
 package com.nus;
 
-import Jama.Matrix;
-
 /**
  * Created by duy on 20/1/15.
  */
