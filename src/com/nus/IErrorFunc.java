@@ -6,26 +6,31 @@ package com.nus;
 public interface IErrorFunc {
 
   /**
-   * Evaluates the error function with input parameters
+   * Evaluates the error function with input optimization parameter values
    *
-   * @param args Parameter variables
+   * @param optParams A vector of real values of parameters used in optimizing
+   *                  the error function
    * @return Double value of the error function
    */
-  public double eval(Object... args);
+  public double eval(double[] optParams);
 
   /**
-   * Computes the Jacobian vector of the error function with input parameters
+   * Computes the Jacobian vector of the error function with input
+   * optimization parameter values
    *
-   * @param args Parameter variables
+   * @param optParams A vector of real values of parameters used in optimizing
+   *                  the error function
    * @return Jacobian vector of the error function
    */
-  public double[] jacobian(Object... args);
+  public double[] jacobian(double[] optParams);
 
   /**
-   * Computes the Hessian matrix of the error function with input parameters
+   * Computes the Hessian matrix of the error function with input
+   * optimization parameter values
    *
-   * @param args Parameter variables
+   * @param optParams A vector of real values of parameters used in optimizing
+   *                  the error function
    * @return Hessian matrix of the error function
    */
-  public double[][] hessian(Object... args);
+  public double[][] hessian(double[] optParams);
 }
