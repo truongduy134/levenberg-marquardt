@@ -14,7 +14,7 @@ public class LMSolver {
   private IErrorFunc errorFunc;
 
   public LMSolver(IErrorFunc inErrorFunc) {
-    this.lambda = 10;
+    this.lambda = 0.001;
     this.maxNumIter = 10;
     this.termEpsilon = 0.00001;
     this.errorFunc = inErrorFunc;
@@ -69,7 +69,7 @@ public class LMSolver {
   public void solve(double[] optParams) {
     int iter = 0;
     int count = 0;
-    boolean stopFlag = false;
+    boolean stopFlag;
     int numOptParams = optParams.length;
 
     double errValue = errorFunc.eval(optParams);
@@ -90,10 +90,10 @@ public class LMSolver {
       // Solve augmented normal equation
       Matrix direction = solveMatrixEq(
         new Matrix(modifiedHessian),
-        new Matrix(gradient, numOptParams)
+        (new Matrix(gradient, numOptParams)).uminus()
       );
       double[] newOptParams =
-        (new Matrix(gradient, numOptParams)).plus(direction).getRowPackedCopy();
+        (new Matrix(optParams, numOptParams)).plus(direction).getRowPackedCopy();   // New estimate = estimate + delta
 
       double newErrValue = errorFunc.eval(newOptParams);
 
@@ -102,6 +102,8 @@ public class LMSolver {
         if (count == 4) {
           stopFlag = true;
         }
+      } else {
+        count = 0;
       }
 
       if (newErrValue > errValue) {
