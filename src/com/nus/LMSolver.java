@@ -92,8 +92,8 @@ public class LMSolver {
         new Matrix(modifiedHessian),
         (new Matrix(gradient, numOptParams)).uminus()
       );
-      double[] newOptParams =
-        (new Matrix(optParams, numOptParams)).plus(direction).getRowPackedCopy();   // New estimate = estimate + delta
+      double[] newOptParams = (new Matrix(optParams, numOptParams))
+        .plus(direction).getRowPackedCopy();
 
       double newErrValue = errorFunc.eval(newOptParams);
 
