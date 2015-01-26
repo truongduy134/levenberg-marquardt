@@ -5,38 +5,38 @@ import Jama.Matrix;
 /**
  * Created by duy on 20/1/15.
  */
-public class LMSolver {
+public class LmSolver {
   // Configuration parameters for Levenberg-Marquadt algorithm
-  private double lambda;
+  private double damping;
   private int maxNumIter;
   private double termEpsilon;
 
   private IErrorFunc errorFunc;
 
-  public LMSolver(IErrorFunc inErrorFunc) {
-    this.lambda = 0.001;
+  public LmSolver(IErrorFunc inErrorFunc) {
+    this.damping = 0.001;
     this.maxNumIter = 10;
     this.termEpsilon = 0.00001;
     this.errorFunc = inErrorFunc;
   }
 
-  public LMSolver(
-      double lambda,
+  public LmSolver(
+      double damping,
       int maxNumIter,
       double termEpsilon,
       IErrorFunc errorFunc) {
-    this.lambda = lambda;
+    this.damping = damping;
     this.maxNumIter = maxNumIter;
     this.termEpsilon = termEpsilon;
     this.errorFunc = errorFunc;
   }
 
-  public double getLambda() {
-    return lambda;
+  public double getDamping() {
+    return damping;
   }
 
-  public void setLambda(double lambda) {
-    this.lambda = lambda;
+  public void setDamping(double damping) {
+    this.damping = damping;
   }
 
   public int getMaxNumIter() {
@@ -74,7 +74,7 @@ public class LMSolver {
 
     double errValue = errorFunc.eval(optParams);
 
-    double curLambda = lambda;
+    double lambda = damping;
 
     do {
       stopFlag = false;
@@ -84,7 +84,7 @@ public class LMSolver {
       double[] gradient = errorFunc.jacobian(optParams);
       double[][] modifiedHessian = errorFunc.hessian(optParams);
       for (int i = 0; i < numOptParams; ++i) {
-        modifiedHessian[i][i] *= (1 + curLambda);
+        modifiedHessian[i][i] *= (1 + lambda);
       }
 
       // Solve augmented normal equation
@@ -107,9 +107,9 @@ public class LMSolver {
       }
 
       if (newErrValue > errValue) {
-        curLambda *= 10.0;
+        lambda *= 10.0;
       } else {
-        curLambda /= 10.0;
+        lambda /= 10.0;
         errValue = newErrValue;
         for (int i = 0; i < numOptParams; ++i) {
           optParams[i] = newOptParams[i];
