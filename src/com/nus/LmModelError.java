@@ -3,7 +3,7 @@ package com.nus;
 /**
  * Created by duy on 20/1/15.
  */
-public interface IErrorFunc {
+public interface LmModelError {
 
   /**
    * Evaluates the error function with input optimization parameter values

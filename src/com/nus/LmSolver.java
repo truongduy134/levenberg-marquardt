@@ -11,9 +11,9 @@ public class LmSolver {
   private int maxNumIter;
   private double termEpsilon;
 
-  private IErrorFunc errorFunc;
+  private LmModelError errorFunc;
 
-  public LmSolver(IErrorFunc inErrorFunc) {
+  public LmSolver(LmModelError inErrorFunc) {
     this.damping = 0.001;
     this.maxNumIter = 10;
     this.termEpsilon = 0.00001;
@@ -24,7 +24,7 @@ public class LmSolver {
       double damping,
       int maxNumIter,
       double termEpsilon,
-      IErrorFunc errorFunc) {
+      LmModelError errorFunc) {
     this.damping = damping;
     this.maxNumIter = maxNumIter;
     this.termEpsilon = termEpsilon;
