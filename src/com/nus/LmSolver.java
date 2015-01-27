@@ -43,7 +43,7 @@ public class LmSolver {
     return maxNumIter;
   }
 
-  public IErrorFunc getErrorFunc() {
+  public LmModelError getErrorFunc() {
     return errorFunc;
   }
 
