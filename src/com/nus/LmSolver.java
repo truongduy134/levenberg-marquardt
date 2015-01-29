@@ -84,7 +84,7 @@ public class LmSolver {
       double[] gradient = errorFunc.jacobian(optParams);
       double[][] modifiedHessian = errorFunc.hessian(optParams);
       for (int i = 0; i < numOptParams; ++i) {
-        modifiedHessian[i][i] *= (1 + lambda);
+        modifiedHessian[i][i] *= (1.0 + lambda);
       }
 
       // Solve augmented normal equation
@@ -106,14 +106,14 @@ public class LmSolver {
         count = 0;
       }
 
-      if (newErrValue > errValue) {
-        lambda *= 10.0;
-      } else {
+      if (newErrValue < errValue) {
         lambda /= 10.0;
         errValue = newErrValue;
         for (int i = 0; i < numOptParams; ++i) {
           optParams[i] = newOptParams[i];
         }
+      } else {
+        lambda *= 10.0;
       }
 
       if (iter > maxNumIter) {
