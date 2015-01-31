@@ -8,8 +8,6 @@ import com.nus.LmModel;
 
 /**
  * Model: f(x) = e^(a * x) + b * x
- *
- * True model: f(x) = e^(2 * x) + 3 * x
  */
 public class ModelExpFunc implements LmModel {
   private double[] x;
@@ -18,10 +16,6 @@ public class ModelExpFunc implements LmModel {
   public ModelExpFunc(double x[], double y[]) {
     this.x = x;
     this.y = y;
-  }
-
-  private static double func(double x, double a, double b) {
-    return Math.exp(a * x) + b * x;
   }
 
   public double[] getMeasuredData() {
