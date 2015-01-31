@@ -1,4 +1,4 @@
-package com.nus.example;
+package com.nus.expfunc;
 
 /**
  * Created by duy on 29/1/15.
