@@ -88,7 +88,7 @@ public class LmSolver {
       }
 
       // Solve augmented normal equation
-      Matrix direction = solveMatrixEq(
+      Matrix direction = JamaHelper.solveMatrixEq(
         new Matrix(modifiedHessian),
         (new Matrix(gradient, numOptParams)).uminus()
       );
@@ -121,9 +121,5 @@ public class LmSolver {
       }
 
     } while (!stopFlag);
-  }
-
-  private static Matrix solveMatrixEq(Matrix A, Matrix b) {
-    return A.lu().solve(b);
   }
 }
