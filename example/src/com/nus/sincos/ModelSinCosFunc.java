@@ -8,14 +8,6 @@ import com.nus.LmModel;
 
 /**
  * Model: f(x) = a * cos(b * x) + b * sin(a * x)
- * fa = cos(b * x) + b * x * cos(a * x)
- * fb = a * x * (-sin(b * x)) + sin(a * x)
- *
- * fab = -x * sin(b * x) + x * cos(a * x)
- * fba = -x * sin(b * x) + x * cos(a * x)
- *
- * faa = -b * x * x * sin(a * x)
- * fbb = -a * x * x * cos(b * x)
  */
 public class ModelSinCosFunc implements LmModel {
   private double[] x;
