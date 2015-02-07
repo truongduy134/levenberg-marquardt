@@ -35,23 +35,14 @@ public class Main {
 
     LmSolver lmSolver = new LmSolver(0.0001, 100, 0.00000001, errorFunc);
 
-    double originalAB[] = {100, -1000};
-    double ab[] = {100, -1000};
-    lmSolver.solve(ab);
-
-    System.out.printf("Result with initial guess (a, b) = (%f, %f):\n",
-      originalAB[0], originalAB[1]);
-    System.out.println(ab[0]);
-    System.out.println(ab[1]);
-
-    originalAB[0] = -3000;
-    originalAB[1] = 10;
-    ab[0] = -3000;
-    ab[1] = 10;
-    lmSolver.solve(ab);
-    System.out.printf("Result with initial guess (a, b) = (%f, %f):\n",
-      originalAB[0], originalAB[1]);
-    System.out.println(ab[0]);
-    System.out.println(ab[1]);
+    double allAbs[][] = {{100, -1000}, {-3000, 10}};
+    for (int i = 0; i < allAbs.length; ++i) {
+      double[] ab = allAbs[i];
+      System.out.printf("Result with initial guess (a, b) = (%f, %f):\n",
+        ab[0], ab[1]);
+      lmSolver.solve(ab);
+      System.out.println(ab[0]);
+      System.out.println(ab[1]);
+    }
   }
 }
