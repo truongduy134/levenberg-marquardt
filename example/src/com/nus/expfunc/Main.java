@@ -41,7 +41,14 @@ public class Main {
     double ab[] = {8, -10};
     lmSolver.solve(ab);
 
-    System.out.println("Result: ");
+    System.out.println("Result:");
+    System.out.println(ab[0]);
+    System.out.println(ab[1]);
+
+    ab[0] = 0.9;
+    ab[1] = 5;
+    lmSolver.solve(ab);
+    System.out.println("Results:");
     System.out.println(ab[0]);
     System.out.println(ab[1]);
   }
