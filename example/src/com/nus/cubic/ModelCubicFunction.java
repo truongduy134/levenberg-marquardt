@@ -7,7 +7,7 @@ package com.nus.cubic;
 import com.nus.LmModel;
 
 /**
- * Model: f(x) = a * x^3 + b * x^2 + c * x
+ * Model: f(x) = a * x^3 + b * x^2 + c * x + d
  */
 public class ModelCubicFunction implements LmModel {
   private double[] x;
@@ -22,24 +22,25 @@ public class ModelCubicFunction implements LmModel {
     return y;
   }
 
-  public double eval(int dataIdx, double[] abc) {
+  public double eval(int dataIdx, double[] abcd) {
     double mx = x[dataIdx];
-    return abc[0] * mx * mx * mx + abc[1] * mx * mx + abc[2] * mx ;
+    return abcd[0] * mx * mx * mx + abcd[1] * mx * mx + abcd[2] * mx + abcd[3];
   }
 
-  public double[] jacobian(int dataIdx, double[] abc) {
-    double[] jVector = new double[3];
+  public double[] jacobian(int dataIdx, double[] abcd) {
+    double[] jVector = new double[4];
     double mx = x[dataIdx];
+    jVector[3] = 1.0;
     jVector[2] = mx;
     jVector[1] = mx * mx;
     jVector[0] = mx * mx * mx;
     return jVector;
   }
 
-  public double[][] hessian(int dataIdx, double[] abc) {
-    double[][] mat = new double[3][3];
-    for (int i = 0; i < 3; ++i) {
-      for (int j = 0; j < 3; ++j) {
+  public double[][] hessian(int dataIdx, double[] abcd) {
+    double[][] mat = new double[4][4];
+    for (int i = 0; i < 4; ++i) {
+      for (int j = 0; j < 4; ++j) {
         mat[i][j] = 0.0;
       }
     }

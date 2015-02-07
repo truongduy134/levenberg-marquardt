@@ -17,7 +17,8 @@ import com.nus.LmSolver;
 public class Main {
   public static void main(String[] args) {
     double[][] xy = {
-      {0.0, 0.2}, {1.0, -1.99}, {1.5, -3.375}, {-2, 22.02}, {3, -18.0}
+      {0.0, 4.2}, {1.0, 1.99}, {1.5, 0.627f}, {-2, 26.02}, {3, -14.02},
+      {4.0, -40.0}, {3.5, -24.87}, {-0.5, 6.125}, {-1, 9.99999}
     };
 
     int numData = xy.length;
@@ -31,14 +32,15 @@ public class Main {
     ModelCubicFunction model = new ModelCubicFunction(x, y);
     LmSumSquaresError errorFunc = new LmSumSquaresError(model);
 
-    LmSolver lmSolver = new LmSolver(0.001, 300, 0.00000001, errorFunc);
+    LmSolver lmSolver = new LmSolver(0.001, 200, 0.00000001, errorFunc);
 
-    double abc[] = {8, -10, 4};
+    double abc[] = {8, -10, 4, 5};
     lmSolver.solve(abc);
 
-    System.out.println("Result: ");
+    System.out.println("Result:");
     System.out.println(abc[0]);
     System.out.println(abc[1]);
     System.out.println(abc[2]);
+    System.out.println(abc[3]);
   }
 }
