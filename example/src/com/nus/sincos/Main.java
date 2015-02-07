@@ -39,9 +39,9 @@ public class Main {
 
     LmSolver lmSolver = new LmSolver(0.00001, 300, 0.00000001, errorFunc);
 
-    double all_abs[][] = {{1.7, 3}, {0.25, 1.5}, {0.0, 3.0}, {10.0, 5.0}};
-    for (int i = 0; i < all_abs.length; ++i) {
-      double[] ab = all_abs[i];
+    double allAbs[][] = {{1.7, 3}, {0.25, 1.5}, {0.0, 3.0}, {10.0, 5.0}};
+    for (int i = 0; i < allAbs.length; ++i) {
+      double[] ab = allAbs[i];
       System.out.printf("Result with initial guess (a, b) = (%f, %f):\n",
         ab[0], ab[1]);
       lmSolver.solve(ab);
