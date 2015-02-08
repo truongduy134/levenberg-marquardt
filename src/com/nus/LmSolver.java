@@ -88,10 +88,16 @@ public class LmSolver {
       }
 
       // Solve augmented normal equation
-      Matrix direction = JamaHelper.solveMatrixEq(
+      Matrix direction = JamaHelper.solvePSDMatrixEq(
         new Matrix(modifiedHessian),
         (new Matrix(gradient, numOptParams)).uminus()
       );
+      if (direction == null) {
+        // Modified Hessian matrix is not positive definite
+        lambda *= 10;
+        continue;
+      }
+
       double[] newOptParams = (new Matrix(optParams, numOptParams))
         .plus(direction).getRowPackedCopy();
 
