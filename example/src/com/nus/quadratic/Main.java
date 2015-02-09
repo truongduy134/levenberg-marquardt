@@ -33,7 +33,7 @@ public class Main {
     ModelQuadraticFunc model = new ModelQuadraticFunc(x, y);
     LmSumSquaresError errorFunc = new LmSumSquaresError(model);
 
-    LmSolver lmSolver = new LmSolver(0.0001, 100, 0.00000001, errorFunc);
+    LmSolver lmSolver = new LmSolver(errorFunc, 1e-3, 50, 1e-8, 1e-8);
 
     double allAbs[][] = {{100, -1000}, {-3000, 10}};
     for (int i = 0; i < allAbs.length; ++i) {
