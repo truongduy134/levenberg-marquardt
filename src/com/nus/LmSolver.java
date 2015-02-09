@@ -7,36 +7,40 @@ import Jama.Matrix;
  */
 public class LmSolver {
   // Configuration parameters for Levenberg-Marquadt algorithm
-  private double damping;
+  private double dampingFactor;
   private int maxNumIter;
-  private double termEpsilon;
+  private double gradientEpsilon;
+  private double changeEpsilon;
 
   private LmModelError errorFunc;
 
   public LmSolver(LmModelError inErrorFunc) {
-    this.damping = 0.001;
+    this.dampingFactor = 0.001;
     this.maxNumIter = 10;
-    this.termEpsilon = 0.00001;
+    this.gradientEpsilon = 1e-8;
+    this.changeEpsilon = 1e-8;
     this.errorFunc = inErrorFunc;
   }
 
   public LmSolver(
-      double damping,
-      int maxNumIter,
-      double termEpsilon,
-      LmModelError errorFunc) {
-    this.damping = damping;
+    LmModelError errorFunc,
+    double damping,
+    int maxNumIter,
+    double gradientEpsilon,
+    double changeEpsilon) {
+    this.dampingFactor = damping;
     this.maxNumIter = maxNumIter;
-    this.termEpsilon = termEpsilon;
+    this.gradientEpsilon = gradientEpsilon;
+    this.changeEpsilon = changeEpsilon;
     this.errorFunc = errorFunc;
   }
 
-  public double getDamping() {
-    return damping;
+  public double getDampingFactor() {
+    return dampingFactor;
   }
 
-  public void setDamping(double damping) {
-    this.damping = damping;
+  public void setDampingFactor(double dampingFactor) {
+    this.dampingFactor = dampingFactor;
   }
 
   public int getMaxNumIter() {
@@ -51,12 +55,20 @@ public class LmSolver {
     this.maxNumIter = maxNumIter;
   }
 
-  public double getTermEpsilon() {
-    return termEpsilon;
+  public double getGradientEpsilon() {
+    return gradientEpsilon;
   }
 
-  public void setTermEpsilon(double termEpsilon) {
-    this.termEpsilon = termEpsilon;
+  public void setGradientEpsilon(double gradientEpsilon) {
+    this.gradientEpsilon = gradientEpsilon;
+  }
+
+  public double getChangeEpsilon() {
+    return changeEpsilon;
+  }
+
+  public void setChangeEpsilon(double changeEpsilon) {
+    this.changeEpsilon = changeEpsilon;
   }
 
   /**
@@ -68,64 +80,79 @@ public class LmSolver {
    */
   public void solve(double[] optParams) {
     int iter = 0;
-    int count = 0;
-    boolean stopFlag;
     int numOptParams = optParams.length;
+    double penaltyFactor = 2.0;
+    double lambda = 0.0;
 
     double errValue = errorFunc.eval(optParams);
 
-    double lambda = damping;
-
-    do {
-      stopFlag = false;
+    while (iter < maxNumIter) {
       iter++;
 
-      // Compute matrices and vectors needed in augmented normal equation
+      // Compute gradient vector
       double[] gradient = errorFunc.jacobian(optParams);
+      Matrix gradientMat = new Matrix(gradient, numOptParams);
+      if (gradientMat.normInf() < gradientEpsilon) {
+        break;
+      }
+
+      // Compute modified Hessian matrix
       double[][] modifiedHessian = errorFunc.hessian(optParams);
+      if (iter == 1) {
+        // Initialize damping value on the first iteration
+        double diagonalMax = modifiedHessian[0][0];
+        for (int i = 1; i < modifiedHessian.length; ++i) {
+          diagonalMax = Math.max(diagonalMax, modifiedHessian[i][i]);
+        }
+        lambda = dampingFactor * diagonalMax;
+      }
       for (int i = 0; i < numOptParams; ++i) {
         modifiedHessian[i][i] += lambda;
       }
+      Matrix modifiedHessianMat = new Matrix(modifiedHessian);
 
       // Solve augmented normal equation
       Matrix direction = JamaHelper.solvePSDMatrixEq(
-        new Matrix(modifiedHessian),
-        (new Matrix(gradient, numOptParams)).uminus()
+        modifiedHessianMat,
+        gradientMat.uminus()
       );
       if (direction == null) {
         // Modified Hessian matrix is not positive definite
-        lambda *= 10;
+        lambda *= penaltyFactor;
+        penaltyFactor *= 2.0;
         continue;
       }
 
-      double[] newOptParams = (new Matrix(optParams, numOptParams))
-        .plus(direction).getRowPackedCopy();
-
-      double newErrValue = errorFunc.eval(newOptParams);
-
-      if (Math.abs(newErrValue - errValue) < termEpsilon) {
-        count++;
-        if (count == 4) {
-          stopFlag = true;
-        }
-      } else {
-        count = 0;
+      // Stop if the change in optimized parameter vectors is negligible
+      Matrix paramVector = new Matrix(optParams, numOptParams);
+      if (direction.normF() <
+          changeEpsilon * (paramVector.normF() + changeEpsilon)) {
+        break;
       }
 
-      if (newErrValue < errValue) {
-        lambda /= 10.0;
-        errValue = newErrValue;
+      double[] newOptParams = paramVector.plus(direction).getRowPackedCopy();
+
+      // Compute gain ratio between actual and predicted gain
+      double newErrValue = errorFunc.eval(newOptParams);
+      double predictedGain = 0.5 * (
+        lambda * JamaHelper.dotProduct(direction, direction) -
+        JamaHelper.dotProduct(gradientMat, direction)
+      );
+      double gainRatio = (errValue - newErrValue) / predictedGain;
+
+      // Update optimized parameter vector and
+      // damping value in augmented normal equation
+      if (gainRatio > 0) {
         for (int i = 0; i < numOptParams; ++i) {
           optParams[i] = newOptParams[i];
         }
+        errValue = newErrValue;
+        penaltyFactor = 2.0;
+        lambda *= Math.max(1.0 / 3.0, 1 - Math.pow(2.0 * gainRatio - 1, 3));
       } else {
-        lambda *= 10.0;
+        lambda *= penaltyFactor;
+        penaltyFactor *= 2.0;
       }
-
-      if (iter > maxNumIter) {
-        stopFlag = true;
-      }
-
-    } while (!stopFlag);
+    }
   }
 }

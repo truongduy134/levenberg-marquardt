@@ -22,4 +22,20 @@ public class JamaHelper {
     }
     return cholesky.solve(b);
   }
+
+  /**
+   * Computes the dot product between vectors u and v
+   * @param u A row or column vector
+   * @param v A row or column vector
+   * @return Real number which is the dot product between u and v
+   */
+  public static double dotProduct(Matrix u, Matrix v) {
+    if (u.getRowDimension() != 1) {
+      u = u.transpose();
+    }
+    if (v.getColumnDimension() != 1) {
+      v = v.transpose();
+    }
+    return (u.times(v).getArray())[0][0];
+  }
 }

@@ -36,10 +36,10 @@ public class Main {
     ModelExpFunc model = new ModelExpFunc(x, y);
     LmSumSquaresError errorFunc = new LmSumSquaresError(model);
 
-    LmSolver lmSolver = new LmSolver(0.1, 300, 0.00000001, errorFunc);
+    LmSolver lmSolver = new LmSolver(errorFunc, 1e-3, 50, 1e-8, 1e-8);
 
     double allAbs[][] = {
-      {8, -10}, {0.9, 5.0}, {0.0, 1.0}, {1.0, 1.0}, {-1.0, 2.0}
+      {8, -10}, {0.9, 5.0}, {0.0, 1.0}, {1.0, 1.0}, {0.0, 4.0}, {-1.0, 2.0}
     };
     for (int i = 0; i < allAbs.length; ++i) {
       double[] ab = allAbs[i];

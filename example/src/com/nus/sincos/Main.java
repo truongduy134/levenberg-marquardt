@@ -37,7 +37,7 @@ public class Main {
     ModelSinCosFunc model = new ModelSinCosFunc(x, y);
     LmSumSquaresError errorFunc = new LmSumSquaresError(model);
 
-    LmSolver lmSolver = new LmSolver(0.00001, 300, 0.00000001, errorFunc);
+    LmSolver lmSolver = new LmSolver(errorFunc, 1e-3, 50, 1e-8, 1e-8);
 
     double allAbs[][] = {{1.7, 3}, {0.25, 1.5}, {0.0, 3.0}, {10.0, 5.0}};
     for (int i = 0; i < allAbs.length; ++i) {

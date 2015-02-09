@@ -32,7 +32,7 @@ public class Main {
     ModelCubicFunction model = new ModelCubicFunction(x, y);
     LmSumSquaresError errorFunc = new LmSumSquaresError(model);
 
-    LmSolver lmSolver = new LmSolver(0.001, 200, 0.00000001, errorFunc);
+    LmSolver lmSolver = new LmSolver(errorFunc, 1e-3, 50, 1e-8, 1e-8);
 
     double abc[] = {8, -10, 4, 5};
     lmSolver.solve(abc);
