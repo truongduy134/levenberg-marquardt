@@ -93,9 +93,6 @@ public class LmSumSquaresError implements LmModelError {
       double error = measuredOutputs[i] - model.eval(i, optParams);
       Matrix modelHessian = new Matrix(model.hessian(i, optParams));
       hessianMat.minusEquals(modelHessian.times(error));
-      /*for (int k = 0; k < 2; k++)
-        for (int j = 0; j < 2; j++)
-          System.out.println(hessianMat.getArray()[k][j]);*/
     }
 
     return hessianMat.getArrayCopy();
