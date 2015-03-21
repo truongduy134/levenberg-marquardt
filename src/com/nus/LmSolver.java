@@ -72,13 +72,22 @@ public class LmSolver {
   }
 
   /**
-   * Applies Levenberg-Marquadt on the input error function with the input
-   * initial guess of optimization parameters
+   * Applies Levenberg-Marquadt algorithm on the input error function with the
+   * input initial guess of optimization parameters
    *
    * @param optParams A vector of initial guess of values of parameters
    *                  for optimization
+   * @param paramHandler A handler which is called to adjust values of
+   *                     the Levenberg-Marquadt parameters after they are
+   *                     updated at the end of each iteration in the algorithm.
+   *                     If {@code paramHandler} is null, no further adjustment
+   *                     to the updated parameters is performed. This is useful
+   *                     when Levenberg-Marquadt algorithm is performed on
+   *                     structures such as quaternions. Note that the
+   *                     way updated parameters are modified can affect
+   *                     correctness of the Levenberg-Marquadt algorithm
    */
-  public void solve(double[] optParams) {
+  public void solve(double[] optParams, LmParamHandler paramHandler) {
     int iter = 0;
     int numOptParams = optParams.length;
     double penaltyFactor = 2.0;
@@ -153,6 +162,22 @@ public class LmSolver {
         lambda *= penaltyFactor;
         penaltyFactor *= 2.0;
       }
+
+      // Adjust updated values of the parameters
+      if (paramHandler != null) {
+        paramHandler.adjust(optParams);
+      }
     }
+  }
+
+  /**
+   * Applies Levenberg-Marquadt algorithm on the input error function with the
+   * input initial guess of optimization parameters
+   *
+   * @param optParams A vector of initial guess of values of parameters
+   *                  for optimization
+   */
+  public void solve(double[] optParams) {
+    this.solve(optParams, null);
   }
 }
