@@ -29,7 +29,7 @@ public class Main {
       y[i] = xy[i][1];
     }
 
-    ModelCubicFunction model = new ModelCubicFunction(x, y);
+    ModelCubicFunc model = new ModelCubicFunc(x, y);
     LmSumSquaresError errorFunc = new LmSumSquaresError(model);
 
     LmSolver lmSolver = new LmSolver(errorFunc, 1e-3, 50, 1e-8, 1e-8);

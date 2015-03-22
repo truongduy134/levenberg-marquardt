@@ -9,11 +9,11 @@ import com.nus.LmModel;
 /**
  * Model: f(x) = a * x^3 + b * x^2 + c * x + d
  */
-public class ModelCubicFunction implements LmModel {
+public class ModelCubicFunc implements LmModel {
   private double[] x;
   private double[] y;
 
-  public ModelCubicFunction(double x[], double y[]) {
+  public ModelCubicFunc(double x[], double y[]) {
     this.x = x;
     this.y = y;
   }
