@@ -6,17 +6,17 @@ import Jama.Matrix;
  * Created by duy on 27/1/15.
  */
 public class LmSumSquaresError implements LmModelError {
-  private LmModel model;
+  private LmScalarModel model;
 
-  public LmSumSquaresError(LmModel model) {
+  public LmSumSquaresError(LmScalarModel model) {
     this.model = model;
   }
 
-  public LmModel getModel() {
+  public LmScalarModel getModel() {
     return model;
   }
 
-  public void setModel(LmModel model) {
+  public void setModel(LmScalarModel model) {
     this.model = model;
   }
 

@@ -4,12 +4,12 @@ package com.nus.quadratic;
  * Created by duy on 1/2/15.
  */
 
-import com.nus.LmModel;
+import com.nus.LmScalarModel;
 
 /**
  * Model: f(x) = a * x^2 + b * x
  */
-public class ModelQuadraticFunc implements LmModel {
+public class ModelQuadraticFunc implements LmScalarModel {
   private double[] x;
   private double[] y;
 

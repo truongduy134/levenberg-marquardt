@@ -3,7 +3,12 @@ package com.nus;
 /**
  * Created by duy on 27/1/15.
  */
-public interface LmModel {
+
+/**
+ * LmScalarModel is an interface for models (functions) whose ranges are
+ * single real-valued numbers
+ */
+public interface LmScalarModel {
   /**
    * Gets the vector of real numbers containing measured output data,
    */

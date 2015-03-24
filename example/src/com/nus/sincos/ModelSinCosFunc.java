@@ -4,12 +4,12 @@ package com.nus.sincos;
  * Created by duy on 3/2/15.
  */
 
-import com.nus.LmModel;
+import com.nus.LmScalarModel;
 
 /**
  * Model: f(x) = a * cos(b * x) + b * sin(a * x)
  */
-public class ModelSinCosFunc implements LmModel {
+public class ModelSinCosFunc implements LmScalarModel {
   private double[] x;
   private double[] y;
 

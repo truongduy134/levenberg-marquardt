@@ -4,12 +4,12 @@ package com.nus.expfunc;
  * Created by duy on 29/1/15.
  */
 
-import com.nus.LmModel;
+import com.nus.LmScalarModel;
 
 /**
  * Model: f(x) = e^(a * x) + b * x
  */
-public class ModelExpFunc implements LmModel {
+public class ModelExpFunc implements LmScalarModel {
   private double[] x;
   private double[] y;
 

@@ -4,12 +4,12 @@ package com.nus.cubic;
  * Created by duy on 2/2/15.
  */
 
-import com.nus.LmModel;
+import com.nus.LmScalarModel;
 
 /**
  * Model: f(x) = a * x^3 + b * x^2 + c * x + d
  */
-public class ModelCubicFunc implements LmModel {
+public class ModelCubicFunc implements LmScalarModel {
   private double[] x;
   private double[] y;
 
