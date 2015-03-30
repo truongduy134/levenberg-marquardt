@@ -18,14 +18,17 @@ public class ModelExpFunc implements LmScalarModel {
     this.y = y;
   }
 
+  @Override
   public double[] getMeasuredData() {
     return y;
   }
 
+  @Override
   public double eval(int dataIdx, double[] ab) {
     return Math.exp(ab[0] * x[dataIdx]) + ab[1] * x[dataIdx];
   }
 
+  @Override
   public double[] jacobian(int dataIdx, double[] ab) {
     double[] jVector = new double[2];
     jVector[0] = x[dataIdx] * Math.exp(ab[0] * x[dataIdx]);
@@ -33,6 +36,7 @@ public class ModelExpFunc implements LmScalarModel {
     return jVector;
   }
 
+  @Override
   public double[][] hessian(int dataIdx, double[] ab) {
     double[][] mat = new double[2][2];
 

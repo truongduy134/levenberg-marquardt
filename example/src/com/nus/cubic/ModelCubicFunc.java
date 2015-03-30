@@ -18,15 +18,18 @@ public class ModelCubicFunc implements LmScalarModel {
     this.y = y;
   }
 
+  @Override
   public double[] getMeasuredData() {
     return y;
   }
 
+  @Override
   public double eval(int dataIdx, double[] abcd) {
     double mx = x[dataIdx];
     return abcd[0] * mx * mx * mx + abcd[1] * mx * mx + abcd[2] * mx + abcd[3];
   }
 
+  @Override
   public double[] jacobian(int dataIdx, double[] abcd) {
     double[] jVector = new double[4];
     double mx = x[dataIdx];
@@ -37,6 +40,7 @@ public class ModelCubicFunc implements LmScalarModel {
     return jVector;
   }
 
+  @Override
   public double[][] hessian(int dataIdx, double[] abcd) {
     double[][] mat = new double[4][4];
     for (int i = 0; i < 4; ++i) {

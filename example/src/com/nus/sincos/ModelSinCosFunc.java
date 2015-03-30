@@ -18,15 +18,18 @@ public class ModelSinCosFunc implements LmScalarModel {
     this.y = y;
   }
 
+  @Override
   public double[] getMeasuredData() {
     return y;
   }
 
+  @Override
   public double eval(int dataIdx, double[] ab) {
     return ab[0] * Math.cos(ab[1] * x[dataIdx]) +
       ab[1] * Math.sin(ab[0] * x[dataIdx]);
   }
 
+  @Override
   public double[] jacobian(int dataIdx, double[] ab) {
     double[] jVector = new double[2];
     jVector[0] = Math.cos(ab[1] * x[dataIdx]) +
@@ -36,6 +39,7 @@ public class ModelSinCosFunc implements LmScalarModel {
     return jVector;
   }
 
+  @Override
   public double[][] hessian(int dataIdx, double[] ab) {
     double[][] mat = new double[2][2];
 

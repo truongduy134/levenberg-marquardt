@@ -19,6 +19,7 @@ public class QuaternionModelError implements LmModelError {
     this.quaternionExpr = new QuaternionExpr();
   }
 
+  @Override
   public double eval(double[] optParams) {
     double errorValue = 0.0;
     int numPoints = originalPoints.length;
@@ -29,6 +30,7 @@ public class QuaternionModelError implements LmModelError {
     return errorValue;
   }
 
+  @Override
   public double[] jacobian(double[] optParams) {
     double[] result = new double[optParams.length];
     for (int i = 0; i < result.length; ++i) {
@@ -47,6 +49,7 @@ public class QuaternionModelError implements LmModelError {
     return result;
   }
 
+  @Override
   public double[][] hessian(double[] optParams) {
     double[][] result = new double[optParams.length][optParams.length];
     for (int i = 0; i < result.length; ++i) {
