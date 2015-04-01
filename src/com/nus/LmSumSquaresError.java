@@ -27,6 +27,7 @@ public class LmSumSquaresError implements LmModelError {
    *                  the error function
    * @return Double value of the error function
    */
+  @Override
   public double eval(double[] optParams) {
     double[] measuredOutputs = model.getMeasuredData();
     int numData = measuredOutputs.length;
@@ -48,6 +49,7 @@ public class LmSumSquaresError implements LmModelError {
    *                  the error function
    * @return Jacobian vector of the error function
    */
+  @Override
   public double[] jacobian(double[] optParams) {
     double[] measuredOutputs = model.getMeasuredData();
     int numData = measuredOutputs.length;
@@ -78,6 +80,7 @@ public class LmSumSquaresError implements LmModelError {
    *                  the error function
    * @return Hessian matrix of the error function
    */
+  @Override
   public double[][] hessian(double[] optParams) {
     double[] measuredOutputs = model.getMeasuredData();
     int numData = measuredOutputs.length;
