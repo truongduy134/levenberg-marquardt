@@ -9,14 +9,12 @@ import com.nus.LmModelError;
 public class QuaternionModelError implements LmModelError {
   private double[][] originalPoints;
   private double[][] transformedPoints;
-  private QuaternionExpr quaternionExpr;
 
   public QuaternionModelError(
       double[][] originalPoints,
       double[][] transformedPoints) {
     this.originalPoints = originalPoints;
     this.transformedPoints = transformedPoints;
-    this.quaternionExpr = new QuaternionExpr();
   }
 
   @Override
@@ -24,7 +22,7 @@ public class QuaternionModelError implements LmModelError {
     double errorValue = 0.0;
     int numPoints = originalPoints.length;
     for (int i = 0; i < numPoints; ++i) {
-      errorValue += this.quaternionExpr.eval(
+      errorValue += QuaternionExpr.eval(
         optParams, originalPoints[i], transformedPoints[i]);
     }
     return errorValue;
@@ -39,7 +37,7 @@ public class QuaternionModelError implements LmModelError {
 
     int numPoints = originalPoints.length;
     for (int dataIdx = 0; dataIdx < numPoints; ++dataIdx) {
-      double[] dataResult = this.quaternionExpr.jacobian(
+      double[] dataResult = QuaternionExpr.jacobian(
         optParams, originalPoints[dataIdx], transformedPoints[dataIdx]);
       for (int i = 0; i < result.length; ++i) {
         result[i] += dataResult[i];
@@ -60,7 +58,7 @@ public class QuaternionModelError implements LmModelError {
 
     int numPoints = originalPoints.length;
     for (int dataIdx = 0; dataIdx < numPoints; ++dataIdx) {
-      double[][] dataResult = this.quaternionExpr.hessian(
+      double[][] dataResult = QuaternionExpr.hessian(
         optParams, originalPoints[dataIdx], transformedPoints[dataIdx]);
       for (int i = 0; i < result.length; ++i) {
         for (int j = 0; j < result.length; ++j) {

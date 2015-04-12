@@ -9,9 +9,7 @@
 package com.nus.quaternion;
 
 public class QuaternionExpr {
-  public QuaternionExpr() {}
-
-  public double eval(double[] q, double[] p, double[] imgP) {
+  public static double eval(double[] q, double[] p, double[] imgP) {
     double __temp_3 = -1.00000000000000 * imgP[0];
     double __temp_8 = Math.pow(q[1], 2.00000000000000);
     double __temp_9 = Math.pow(q[2], 2.00000000000000);
@@ -67,7 +65,7 @@ public class QuaternionExpr {
     return __temp_0;
   }
 
-  public double partialDerivative_0(double[] q, double[] p, double[] imgP) {
+  public static double partialDerivative_0(double[] q, double[] p, double[] imgP) {
     double __temp_4 = -1.00000000000000 * imgP[0];
     double __temp_9 = Math.pow(q[1], 2.00000000000000);
     double __temp_10 = Math.pow(q[2], 2.00000000000000);
@@ -188,7 +186,7 @@ public class QuaternionExpr {
     return __temp_0;
   }
 
-  public double partialDerivative_1(double[] q, double[] p, double[] imgP) {
+  public static double partialDerivative_1(double[] q, double[] p, double[] imgP) {
     double __temp_4 = -1.00000000000000 * imgP[0];
     double __temp_9 = Math.pow(q[1], 2.00000000000000);
     double __temp_10 = Math.pow(q[2], 2.00000000000000);
@@ -309,7 +307,7 @@ public class QuaternionExpr {
     return __temp_0;
   }
 
-  public double partialDerivative_2(double[] q, double[] p, double[] imgP) {
+  public static double partialDerivative_2(double[] q, double[] p, double[] imgP) {
     double __temp_4 = -1.00000000000000 * imgP[0];
     double __temp_9 = Math.pow(q[1], 2.00000000000000);
     double __temp_10 = Math.pow(q[2], 2.00000000000000);
@@ -430,7 +428,7 @@ public class QuaternionExpr {
     return __temp_0;
   }
 
-  public double partialDerivative_3(double[] q, double[] p, double[] imgP) {
+  public static double partialDerivative_3(double[] q, double[] p, double[] imgP) {
     double __temp_4 = -1.00000000000000 * imgP[0];
     double __temp_9 = Math.pow(q[1], 2.00000000000000);
     double __temp_10 = Math.pow(q[2], 2.00000000000000);
@@ -549,7 +547,7 @@ public class QuaternionExpr {
     return __temp_0;
   }
 
-  public double[] jacobian(double[] q, double[] p, double[] imgP) {
+  public static double[] jacobian(double[] q, double[] p, double[] imgP) {
     double[] __temp = new double[4];
     __temp[0] = partialDerivative_0(q, p, imgP);
     __temp[1] = partialDerivative_1(q, p, imgP);
@@ -557,7 +555,7 @@ public class QuaternionExpr {
     __temp[3] = partialDerivative_3(q, p, imgP);
     return __temp;
   }
-  public double partialDerivative_0_0(double[] q, double[] p, double[] imgP) {
+  public static double partialDerivative_0_0(double[] q, double[] p, double[] imgP) {
     double __temp_4 = -1.00000000000000 * imgP[1];
     double __temp_9 = Math.pow(q[0], 2.00000000000000);
     double __temp_10 = Math.pow(q[2], 2.00000000000000);
@@ -810,7 +808,7 @@ public class QuaternionExpr {
     return __temp_0;
   }
 
-  public double partialDerivative_0_1(double[] q, double[] p, double[] imgP) {
+  public static double partialDerivative_0_1(double[] q, double[] p, double[] imgP) {
     double __temp_4 = -1.00000000000000 * imgP[0];
     double __temp_9 = Math.pow(q[1], 2.00000000000000);
     double __temp_10 = Math.pow(q[2], 2.00000000000000);
@@ -1241,7 +1239,7 @@ public class QuaternionExpr {
     return __temp_0;
   }
 
-  public double partialDerivative_0_2(double[] q, double[] p, double[] imgP) {
+  public static double partialDerivative_0_2(double[] q, double[] p, double[] imgP) {
     double __temp_4 = -1.00000000000000 * imgP[0];
     double __temp_9 = Math.pow(q[1], 2.00000000000000);
     double __temp_10 = Math.pow(q[2], 2.00000000000000);
@@ -1672,7 +1670,7 @@ public class QuaternionExpr {
     return __temp_0;
   }
 
-  public double partialDerivative_0_3(double[] q, double[] p, double[] imgP) {
+  public static double partialDerivative_0_3(double[] q, double[] p, double[] imgP) {
     double __temp_4 = -1.00000000000000 * imgP[1];
     double __temp_9 = Math.pow(q[0], 2.00000000000000);
     double __temp_10 = Math.pow(q[2], 2.00000000000000);
@@ -2099,7 +2097,7 @@ public class QuaternionExpr {
     return __temp_0;
   }
 
-  public double partialDerivative_1_0(double[] q, double[] p, double[] imgP) {
+  public static double partialDerivative_1_0(double[] q, double[] p, double[] imgP) {
     double __temp_4 = -1.00000000000000 * imgP[0];
     double __temp_9 = Math.pow(q[1], 2.00000000000000);
     double __temp_10 = Math.pow(q[2], 2.00000000000000);
@@ -2530,7 +2528,7 @@ public class QuaternionExpr {
     return __temp_0;
   }
 
-  public double partialDerivative_1_1(double[] q, double[] p, double[] imgP) {
+  public static double partialDerivative_1_1(double[] q, double[] p, double[] imgP) {
     double __temp_4 = -1.00000000000000 * imgP[0];
     double __temp_9 = Math.pow(q[1], 2.00000000000000);
     double __temp_10 = Math.pow(q[2], 2.00000000000000);
@@ -2783,7 +2781,7 @@ public class QuaternionExpr {
     return __temp_0;
   }
 
-  public double partialDerivative_1_2(double[] q, double[] p, double[] imgP) {
+  public static double partialDerivative_1_2(double[] q, double[] p, double[] imgP) {
     double __temp_4 = -1.00000000000000 * imgP[1];
     double __temp_9 = Math.pow(q[0], 2.00000000000000);
     double __temp_10 = Math.pow(q[2], 2.00000000000000);
@@ -3214,7 +3212,7 @@ public class QuaternionExpr {
     return __temp_0;
   }
 
-  public double partialDerivative_1_3(double[] q, double[] p, double[] imgP) {
+  public static double partialDerivative_1_3(double[] q, double[] p, double[] imgP) {
     double __temp_4 = -1.00000000000000 * imgP[2];
     double __temp_9 = Math.pow(q[0], 2.00000000000000);
     double __temp_10 = Math.pow(q[1], 2.00000000000000);
@@ -3641,7 +3639,7 @@ public class QuaternionExpr {
     return __temp_0;
   }
 
-  public double partialDerivative_2_0(double[] q, double[] p, double[] imgP) {
+  public static double partialDerivative_2_0(double[] q, double[] p, double[] imgP) {
     double __temp_4 = -1.00000000000000 * imgP[0];
     double __temp_9 = Math.pow(q[1], 2.00000000000000);
     double __temp_10 = Math.pow(q[2], 2.00000000000000);
@@ -4072,7 +4070,7 @@ public class QuaternionExpr {
     return __temp_0;
   }
 
-  public double partialDerivative_2_1(double[] q, double[] p, double[] imgP) {
+  public static double partialDerivative_2_1(double[] q, double[] p, double[] imgP) {
     double __temp_4 = -1.00000000000000 * imgP[1];
     double __temp_9 = Math.pow(q[0], 2.00000000000000);
     double __temp_10 = Math.pow(q[2], 2.00000000000000);
@@ -4503,7 +4501,7 @@ public class QuaternionExpr {
     return __temp_0;
   }
 
-  public double partialDerivative_2_2(double[] q, double[] p, double[] imgP) {
+  public static double partialDerivative_2_2(double[] q, double[] p, double[] imgP) {
     double __temp_4 = -1.00000000000000 * imgP[0];
     double __temp_9 = Math.pow(q[1], 2.00000000000000);
     double __temp_10 = Math.pow(q[2], 2.00000000000000);
@@ -4756,7 +4754,7 @@ public class QuaternionExpr {
     return __temp_0;
   }
 
-  public double partialDerivative_2_3(double[] q, double[] p, double[] imgP) {
+  public static double partialDerivative_2_3(double[] q, double[] p, double[] imgP) {
     double __temp_4 = -1.00000000000000 * imgP[0];
     double __temp_9 = Math.pow(q[1], 2.00000000000000);
     double __temp_10 = Math.pow(q[2], 2.00000000000000);
@@ -5183,7 +5181,7 @@ public class QuaternionExpr {
     return __temp_0;
   }
 
-  public double partialDerivative_3_0(double[] q, double[] p, double[] imgP) {
+  public static double partialDerivative_3_0(double[] q, double[] p, double[] imgP) {
     double __temp_4 = -1.00000000000000 * imgP[1];
     double __temp_9 = Math.pow(q[0], 2.00000000000000);
     double __temp_10 = Math.pow(q[2], 2.00000000000000);
@@ -5610,7 +5608,7 @@ public class QuaternionExpr {
     return __temp_0;
   }
 
-  public double partialDerivative_3_1(double[] q, double[] p, double[] imgP) {
+  public static double partialDerivative_3_1(double[] q, double[] p, double[] imgP) {
     double __temp_4 = -1.00000000000000 * imgP[2];
     double __temp_9 = Math.pow(q[0], 2.00000000000000);
     double __temp_10 = Math.pow(q[1], 2.00000000000000);
@@ -6037,7 +6035,7 @@ public class QuaternionExpr {
     return __temp_0;
   }
 
-  public double partialDerivative_3_2(double[] q, double[] p, double[] imgP) {
+  public static double partialDerivative_3_2(double[] q, double[] p, double[] imgP) {
     double __temp_4 = -1.00000000000000 * imgP[0];
     double __temp_9 = Math.pow(q[1], 2.00000000000000);
     double __temp_10 = Math.pow(q[2], 2.00000000000000);
@@ -6464,7 +6462,7 @@ public class QuaternionExpr {
     return __temp_0;
   }
 
-  public double partialDerivative_3_3(double[] q, double[] p, double[] imgP) {
+  public static double partialDerivative_3_3(double[] q, double[] p, double[] imgP) {
     double __temp_4 = -1.00000000000000 * imgP[0];
     double __temp_9 = Math.pow(q[1], 2.00000000000000);
     double __temp_10 = Math.pow(q[2], 2.00000000000000);
@@ -6643,7 +6641,7 @@ public class QuaternionExpr {
     return __temp_0;
   }
 
-  public double[][] hessian(double[] q, double[] p, double[] imgP) {
+  public static double[][] hessian(double[] q, double[] p, double[] imgP) {
     double[][] __temp = new double[4][4];
     __temp[0][0] = partialDerivative_0_0(q, p, imgP);
     __temp[0][1] = partialDerivative_0_1(q, p, imgP);
