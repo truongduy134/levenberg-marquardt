@@ -17,6 +17,7 @@ public interface LmScalarModel {
   /**
    * Evaluates the model's estimated output for the k-th input data that
    * corresponds to the parameter vector
+   *
    * @param dataIdx The index of the input data
    * @param optParams A vector of real values of parameters in the model
    * @return Estimated output value produced by the model
