@@ -5,6 +5,7 @@ package com.nus.quaternion;
  */
 
 import com.nus.LmSolver;
+import com.nus.LmSumError;
 
 public class Main {
   /**
@@ -52,8 +53,9 @@ public class Main {
       {3.733338, -1.966671, 0.666665},
     };
 
-    QuaternionModelError errorFunc = new QuaternionModelError(
+    QuaternionPointError datumError = new QuaternionPointError(
       originalPoints, transformedPoints);
+    LmSumError errorFunc = new LmSumError(datumError);
     LmSolver lmSolver = new LmSolver(errorFunc, 1e-3, 100, 1e-8, 1e-8);
     QuaternionHandler unitHandler = new QuaternionHandler();
 
