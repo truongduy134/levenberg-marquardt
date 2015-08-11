@@ -86,8 +86,16 @@ public class LmSolver {
    *                     structures such as quaternions. Note that the
    *                     way updated parameters are modified can affect
    *                     correctness of the Levenberg-Marquadt algorithm
+   * @param approxHessianFlg A boolean flag to indicate whether the Hessian
+   *                         matrix used in the Levenberg-Marquadt algorithm
+   *                         should be approximated or computed exactly. If
+   *                         {@code true}, the Hessian matrix will be
+   *                         approximated by the Jacobian matrix
    */
-  public void solve(double[] optParams, LmParamHandler paramHandler) {
+  public void solve(
+      double[] optParams,
+      LmParamHandler paramHandler,
+      boolean approxHessianFlg) {
     int iter = 0;
     int numOptParams = optParams.length;
     double penaltyFactor = 2.0;
@@ -106,7 +114,12 @@ public class LmSolver {
       }
 
       // Compute modified Hessian matrix
-      double[][] modifiedHessian = errorFunc.hessian(optParams);
+      double[][] modifiedHessian;
+      if (approxHessianFlg) {
+        modifiedHessian = approximateHessian(gradientMat).getArray();
+      } else {
+        modifiedHessian = errorFunc.hessian(optParams);
+      }
       if (iter == 1) {
         // Initialize damping value on the first iteration
         double diagonalMax = modifiedHessian[0][0];
@@ -172,12 +185,54 @@ public class LmSolver {
 
   /**
    * Applies Levenberg-Marquadt algorithm on the input error function with the
-   * input initial guess of optimization parameters
+   * input initial guess of optimization parameters. Note that the Hessian
+   * matrix used in the Levenberg-Marquadt will be computed exactly
    *
    * @param optParams A vector of initial guess of values of parameters
    *                  for optimization
    */
   public void solve(double[] optParams) {
-    this.solve(optParams, null);
+    this.solve(optParams, null, false);
+  }
+
+  /**
+   * Applies Levenberg-Marquadt algorithm on the input error function with the
+   * input initial guess of optimization parameters.
+   *
+   * @param optParams A vector of initial guess of values of parameters
+   *                  for optimization
+   * @param approxHessianFlg A boolean flag to indicate whether the Hessian
+   *                         matrix used in the Levenberg-Marquadt algorithm
+   *                         should be approximated or computed exactly. If
+   *                         {@code true}, the Hessian matrix will be
+   *                         approximated by the Jacobian matrix
+   */
+  public void solve(double[] optParams, boolean approxHessianFlg) {
+    this.solve(optParams, null, approxHessianFlg);
+  }
+
+  /**
+   * Applies Levenberg-Marquadt algorithm on the input error function with the
+   * input initial guess of optimization parameters. Note that the Hessian
+   * matrix used in the Levenberg-Marquadt will be computed exactly
+   *
+   * @param optParams A vector of initial guess of values of parameters
+   *                  for optimization
+   * @param paramHandler A handler which is called to adjust values of
+   *                     the Levenberg-Marquadt parameters after they are
+   *                     updated at the end of each iteration in the algorithm.
+   *                     If {@code paramHandler} is null, no further adjustment
+   *                     to the updated parameters is performed. This is useful
+   *                     when Levenberg-Marquadt algorithm is performed on
+   *                     structures such as quaternions. Note that the
+   *                     way updated parameters are modified can affect
+   *                     correctness of the Levenberg-Marquadt algorithm
+   */
+  public void solve(double[] optParams, LmParamHandler paramHandler) {
+    this.solve(optParams, paramHandler, false);
+  }
+
+  private static Matrix approximateHessian(Matrix jacobian) {
+    return jacobian.transpose().times(jacobian);
   }
 }
