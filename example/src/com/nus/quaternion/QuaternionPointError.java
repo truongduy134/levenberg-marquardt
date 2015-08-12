@@ -43,7 +43,8 @@ public class QuaternionPointError implements LmDatumError {
   }
 
   @Override
-  public double[][] hessian(int pointIdx, double[] quaternion) {
+  public double[][] hessian(
+      int pointIdx, double[] quaternion, boolean approxHessianFlg) {
     return QuaternionExpr.hessian(
       quaternion, originalPoints[pointIdx], transformedPoints[pointIdx]);
   }

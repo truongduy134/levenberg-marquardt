@@ -30,7 +30,22 @@ public interface LmModelError {
    *
    * @param optParams A vector of real values of parameters used in optimizing
    *                  the error function
+   * @param approxHessianFlg A boolean flag to indicate whether the Hessian
+   *                         matrix can be approximated instead of having to be
+   *                         computed exactly
    * @return Hessian matrix of the error function
    */
-  public double[][] hessian(double[] optParams);
+  public double[][] hessian(double[] optParams, boolean approxHessianFlg);
+
+  /**
+   * Computes the Hessian matrix of the error function with input
+   * optimization parameter values
+   *
+   * @param optParams A vector of real values of parameters used in optimizing
+   *                  the error function
+   * @return The exact Hessian matrix of the error function
+   */
+  public default double[][] hessian(double[] optParams) {
+    return this.hessian(optParams, false);
+  }
 }
