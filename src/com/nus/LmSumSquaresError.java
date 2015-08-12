@@ -78,10 +78,15 @@ public class LmSumSquaresError implements LmModelError {
    *
    * @param optParams A vector of real values of parameters used in optimizing
    *                  the error function
+   * @param approxHessianFlg A boolean flag to indicate whether the Hessian
+   *                         matrix can be approximated instead of having to be
+   *                         computed exactly. If {@code true}, the Hessian
+   *                         matrix will be approximated based on the Jacobian
+   *                         matrix
    * @return Hessian matrix of the error function
    */
   @Override
-  public double[][] hessian(double[] optParams) {
+  public double[][] hessian(double[] optParams, boolean approxHessianFlg) {
     double[] measuredOutputs = model.getMeasuredData();
     int numData = measuredOutputs.length;
     int numParams = optParams.length;
@@ -92,10 +97,13 @@ public class LmSumSquaresError implements LmModelError {
     }
     Matrix jacobianMat = new Matrix(jVectors);
     Matrix hessianMat = jacobianMat.transpose().times(jacobianMat);
-    for (int i = 0; i < numData; ++i) {
-      double error = measuredOutputs[i] - model.eval(i, optParams);
-      Matrix modelHessian = new Matrix(model.hessian(i, optParams));
-      hessianMat.minusEquals(modelHessian.times(error));
+
+    if (!approxHessianFlg) {
+      for (int i = 0; i < numData; ++i) {
+        double error = measuredOutputs[i] - model.eval(i, optParams);
+        Matrix modelHessian = new Matrix(model.hessian(i, optParams));
+        hessianMat.minusEquals(modelHessian.times(error));
+      }
     }
 
     return hessianMat.getArrayCopy();

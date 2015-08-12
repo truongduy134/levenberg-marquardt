@@ -114,12 +114,8 @@ public class LmSolver {
       }
 
       // Compute modified Hessian matrix
-      double[][] modifiedHessian;
-      if (approxHessianFlg) {
-        modifiedHessian = approximateHessian(gradientMat).getArray();
-      } else {
-        modifiedHessian = errorFunc.hessian(optParams);
-      }
+      double[][] modifiedHessian = errorFunc.hessian(
+        optParams, approxHessianFlg);
       if (iter == 1) {
         // Initialize damping value on the first iteration
         double diagonalMax = modifiedHessian[0][0];

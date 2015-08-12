@@ -42,7 +42,27 @@ public interface LmDatumError {
    *
    * @param dataIdx The index of the input data
    * @param optParams A vector of real values of parameters in the model
+   * @param approxHessianFlg A boolean flag to indicate whether the Hessian
+   *                         matrix can be approximated instead of having to be
+   *                         computed exactly
    * @return
    */
-  public double[][] hessian(int dataIdx, double[] optParams);
+  public double[][] hessian(
+    int dataIdx,
+    double[] optParams,
+    boolean approxHessianFlg
+  );
+
+  /**
+   * Evaluates the Hessian matrix of the error function for the k-th observed
+   * data that corresponds to the parameter vector. The Hessian matrix is
+   * computed exactly
+   *
+   * @param dataIdx
+   * @param optParams
+   * @return
+   */
+  public default double[][] hessian(int dataIdx, double[] optParams) {
+    return this.hessian(dataIdx, optParams, false);
+  }
 }

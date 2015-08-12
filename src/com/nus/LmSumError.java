@@ -68,10 +68,13 @@ public class LmSumError implements LmModelError {
    *
    * @param optParams A vector of real values of parameters used in optimizing
    *                  the error function
+   * @param approxHessianFlg A boolean flag to indicate whether the Hessian
+   *                         matrix can be approximated instead of having to be
+   *                         computed exactly.
    * @return Hessian matrix of the error function
    */
   @Override
-  public double[][] hessian(double[] optParams) {
+  public double[][] hessian(double[] optParams, boolean approxHessianFlg) {
     int numData = datumError.getNumData();
     int numParams = optParams.length;
     double[][] hessianMat = new double[numParams][numParams];
@@ -83,7 +86,8 @@ public class LmSumError implements LmModelError {
     }
 
     for (int k = 0; k < numData; ++k) {
-      double[][] datumHessian = datumError.hessian(k, optParams);
+      double[][] datumHessian = datumError.hessian(
+        k, optParams, approxHessianFlg);
 
       for (int i = 0; i < numParams; ++i) {
         for (int j = 0; j < numParams; ++j) {
